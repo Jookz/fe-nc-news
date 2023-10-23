@@ -18,7 +18,7 @@ export default function Articles() {
 
   if (isLoading) return <p>Loading articles...</p>;
   return (
-    <div>
+    <section>
       <h1>Articles</h1>
       <ul className="article-container">
         {articleList.map((article) => {
@@ -38,6 +38,6 @@ export default function Articles() {
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }
