@@ -1,0 +1,18 @@
+.article-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.article-card {
+  border: 3px solid black;
+  width: 15rem;
+  list-style-type: none;
+  margin-bottom: 20px;
+}
+
+.card-image {
+  width: 50%;
+  flex: 1;
+}
