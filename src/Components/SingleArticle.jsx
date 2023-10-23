@@ -22,6 +22,8 @@ export default function SingleArticle() {
       <p>Author: {article.author}</p>
       <p>Topic: {article.topic}</p>
       <p>Votes: {article.votes}</p>
+      <h3>Comments</h3>
+      <ul id="comments"></ul>
       <h3>
         Like this article? Upvote <button>HERE 👍</button>
       </h3>
