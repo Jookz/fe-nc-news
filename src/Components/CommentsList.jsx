@@ -1,18 +1,21 @@
 import { useParams } from "react-router-dom";
-import myApi from "./api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getArticleComments } from "./api";
 
 export default function CommentsList() {
   const { article_id } = useParams();
   const [commentsList, setCommentsList] = useState([]);
 
-  myApi
-    .get(
-      `https://nc-news-6m81.onrender.com/api/articles/${article_id}/comments`
-    )
-    .then((response) => {
-      setCommentsList(response.data);
+  useEffect(() => {
+    getArticleComments(article_id).then((comments) => {
+      setCommentsList(comments.data);
     });
+  }, []);
+
+  if (commentsList.length === 0) {
+    return <h3>No comments yet.</h3>;
+  }
+
   return (
     <article>
       <h1>Comments</h1>

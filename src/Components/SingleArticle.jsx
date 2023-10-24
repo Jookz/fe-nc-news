@@ -1,30 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import myApi from "./api";
-import { Link } from "react-router-dom";
 import CommentsList from "./CommentsList";
+import { getSingleArticle } from "./api";
+import Voter from "./Voter";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
-  const [commentsList, setCommentsList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    myApi
-      .get(`https://nc-news-6m81.onrender.com/api/articles/${article_id}`)
-      .then((response) => {
-        setArticle(response.data.article);
-      });
+    setIsLoading(true);
+    getSingleArticle(article_id).then((response) => {
+      setIsLoading(false);
+      setArticle(response.data.article);
+    });
   }, []);
 
-  myApi
-    .get(
-      `https://nc-news-6m81.onrender.com/api/articles/${article_id}/comments`
-    )
-    .then((response) => {
-      setCommentsList(response.data);
-    });
-
+  if (isLoading) return <p>Loading articles...</p>;
+  console.log(article);
   return (
     <section>
       <article>
@@ -34,10 +28,7 @@ export default function SingleArticle() {
         <p>Author: {article.author}</p>
         <p>Topic: {article.topic}</p>
         <h3>Like this article?</h3>
-        <p>
-          Votes: {article.votes} <button>↑</button>
-          <button>↓</button>
-        </p>
+        <Voter article_id={article.article_id} votes={article.votes} />
       </article>
       <CommentsList />
     </section>

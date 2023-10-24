@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import myApi from "./api";
+import { getArticles } from "./api.js";
 
 export default function Articles() {
   const [articleList, setArticleList] = useState([]);
@@ -8,12 +8,10 @@ export default function Articles() {
 
   useEffect(() => {
     setIsLoading(true);
-    myApi
-      .get("https://nc-news-6m81.onrender.com/api/articles")
-      .then((response) => {
-        setIsLoading(false);
-        setArticleList(response.data);
-      });
+    getArticles().then((articles) => {
+      setIsLoading(false);
+      setArticleList(articles);
+    });
   }, []);
 
   if (isLoading) return <p>Loading articles...</p>;
@@ -24,7 +22,6 @@ export default function Articles() {
         {articleList.map((article) => {
           return (
             <li className="article-card" key={article.title}>
-              <p>{article.votes} 👍</p>
               <Link to={`/articles/${article.article_id}`}>
                 {article.title}
               </Link>
@@ -34,6 +31,7 @@ export default function Articles() {
                 alt=""
               />
               <p>Author: {article.author}</p>
+              <p>{article.votes} 👍</p>
             </li>
           );
         })}
