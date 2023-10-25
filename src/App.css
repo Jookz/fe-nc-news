@@ -40,3 +40,7 @@
 #comment-input__true {
   border: 3px solid red;
 }
+
+textarea {
+  resize: none;
+}

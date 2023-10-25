@@ -38,10 +38,15 @@ const postComment = (article_id, comment) => {
   );
 };
 
+const getTopics = () => {
+  return myApi.get("https://nc-news-6m81.onrender.com/api/topics");
+};
+
 export {
   getArticles,
   getSingleArticle,
   getArticleComments,
   incrementArticle,
   postComment,
+  getTopics,
 };

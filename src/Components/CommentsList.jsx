@@ -27,6 +27,7 @@ export default function CommentsList() {
       })
       .catch((error) => {
         if (error) {
+          setIsCommenting(false);
           setIsErr(true);
         }
       });
