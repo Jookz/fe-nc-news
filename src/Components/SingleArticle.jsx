@@ -18,7 +18,7 @@ export default function SingleArticle() {
   }, []);
 
   if (isLoading) return <p>Loading articles...</p>;
-  console.log(article);
+
   return (
     <section>
       <article>
@@ -27,6 +27,7 @@ export default function SingleArticle() {
         <p>Published: {article.created_at}</p>
         <p>Author: {article.author}</p>
         <p>Topic: {article.topic}</p>
+        <p>{article.body}</p>
         <h3>Like this article?</h3>
         <Voter article_id={article.article_id} votes={article.votes} />
       </article>

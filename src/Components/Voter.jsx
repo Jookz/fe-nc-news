@@ -12,7 +12,10 @@ export default function Voter({ votes, article_id }) {
   };
 
   useEffect(() => {
-    incrementArticle(article_id, userVotes).then((response) => {});
+    incrementArticle(article_id, userVotes).catch((error) => {
+      setUserVotes(0);
+      setErr(error);
+    });
   }, [userVotes]);
 
   return (
