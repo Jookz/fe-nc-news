@@ -26,3 +26,17 @@
 .nav-bar {
   text-align: center;
 }
+
+.button__logged-in {
+  background-color: green;
+  color: white;
+}
+
+.button__logged-out {
+  background-color: red;
+  color: black;
+}
+
+#comment-input__true {
+  border: 3px solid red;
+}

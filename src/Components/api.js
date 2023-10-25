@@ -31,4 +31,17 @@ const incrementArticle = (article_id, userVotes) => {
   );
 };
 
-export { getArticles, getSingleArticle, getArticleComments, incrementArticle };
+const postComment = (article_id, comment) => {
+  return myApi.post(
+    `https://nc-news-6m81.onrender.com/api/articles/${article_id}/comments`,
+    { username: "grumpy19", body: comment }
+  );
+};
+
+export {
+  getArticles,
+  getSingleArticle,
+  getArticleComments,
+  incrementArticle,
+  postComment,
+};
