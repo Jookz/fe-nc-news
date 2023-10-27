@@ -1,23 +1,49 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { getArticles } from "./api.js";
 
 export default function Articles() {
   const [articleList, setArticleList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [topic, setTopic] = useState("View by topic");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [sortBy, setSortBy] = useState("Sort by");
+
+  function setQuery(topic) {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("topic", topic);
+    setSearchParams(newParams);
+  }
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles().then((articles) => {
+    setQuery(topic);
+    getArticles(topic).then((articles) => {
       setIsLoading(false);
       setArticleList(articles);
     });
-  }, []);
+  }, [topic]);
 
   if (isLoading) return <p>Loading articles...</p>;
   return (
     <section>
       <h1>Articles</h1>
+      <select name="topics-select" onChange={(e) => setTopic(e.target.value)}>
+        <option value="View by topic">View by topic</option>
+        <option value="cooking">Cooking</option>
+        <option value="coding">Coding</option>
+        <option value="football">Football</option>
+      </select>
+      <select
+        name="sortby-select"
+        onChange={(e) => {
+          setSortBy(e.target.value);
+        }}
+      >
+        <option value="created_at">Date</option>
+        <option value="comment_count">Comment Count</option>
+        <option value="votes">Votes</option>
+      </select>
       <ul className="article-container">
         {articleList.map((article) => {
           return (

@@ -37,7 +37,7 @@ export default function CommentsList() {
     getArticleComments(article_id).then((comments) => {
       setCommentsList(comments.data);
     });
-  }, [handleSubmit]);
+  }, [isCommenting]);
 
   if (isCommenting) {
     return <p>Commenting...</p>;

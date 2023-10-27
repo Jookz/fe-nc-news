@@ -8,7 +8,6 @@ import Articles from "./Components/Articles";
 import SingleArticle from "./Components/SingleArticle";
 import Home from "./Components/Home";
 import CommentsList from "./Components/CommentsList";
-import Topics from "./Components/Topics";
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
             path="/articles/:article_id/comments"
             element={<CommentsList />}
           ></Route>
-          <Route path="/topics" element={<Topics />}></Route>
         </Routes>
       </LoginProvider>
     </>
