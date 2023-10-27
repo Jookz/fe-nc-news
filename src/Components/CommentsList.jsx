@@ -14,6 +14,11 @@ export default function CommentsList() {
     setNewComment(value);
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteComment();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsCommenting(true);
@@ -72,6 +77,7 @@ export default function CommentsList() {
               <p>Votes: {comment.votes}</p>
               <button>↑</button>
               <button>↓</button>
+              <button>🗑️</button>
             </li>
           );
         })}
