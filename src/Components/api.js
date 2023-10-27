@@ -4,13 +4,16 @@ const myApi = axios.create({
   baseURL: "https://nc-news-6m81.onrender.com/api/",
 });
 
-const getArticles = (topic, sortBy) => {
+const getArticles = (topic, sortBy, order) => {
   const params = {};
   if (topic) {
     params.topic = topic;
   }
   if (sortBy) {
     params.sort_by = sortBy;
+  }
+  if (order) {
+    params.order = order;
   }
   return myApi.get("/articles", { params }).then((response) => {
     return response.data;

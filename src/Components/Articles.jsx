@@ -7,9 +7,11 @@ export default function Articles() {
   const [isLoading, setIsLoading] = useState(true);
   const [topic, setTopic] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [order, setOrder] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const topicQuery = searchParams.get("topic");
   const sortQuery = searchParams.get("sort_by");
+  const orderQuery = searchParams.get("order");
 
   function setTopicQuery(topic) {
     const newParams = new URLSearchParams(searchParams);
@@ -25,9 +27,16 @@ export default function Articles() {
     setSortBy(sortBy);
   }
 
+  function setSortOrder(order) {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("order", order);
+    setSearchParams(newParams);
+    setOrder(order);
+  }
+
   useEffect(() => {
     setIsLoading(true);
-    getArticles(topic, sortBy).then((articles) => {
+    getArticles(topic, sortBy, order).then((articles) => {
       setIsLoading(false);
       setArticleList(articles);
     });
@@ -57,6 +66,8 @@ export default function Articles() {
         <option value="comment_count">Comment Count</option>
         <option value="votes">Votes</option>
       </select>
+      <button onClick={() => setSortOrder("asc")}>Ascending</button>
+      <button onClick={() => setSortOrder("desc")}>Descending</button>
       <ul className="article-container">
         {articleList.map((article) => {
           return (
