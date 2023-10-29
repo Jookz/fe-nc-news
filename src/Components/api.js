@@ -46,9 +46,9 @@ const postComment = (article_id, comment) => {
   );
 };
 
-const deleteComment = () => {
+const deleteComment = (comment_id) => {
   return myApi.delete(
-    `https://nc-news-6m81.onrender.com/api/articles/${article_id}/comments`
+    `https://nc-news-6m81.onrender.com/api/comments/${comment_id}`
   );
 };
 
@@ -58,4 +58,5 @@ export {
   getArticleComments,
   incrementArticle,
   postComment,
+  deleteComment,
 };

@@ -8,15 +8,27 @@ export default function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [err, setErr] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
-    getSingleArticle(article_id).then((response) => {
-      setIsLoading(false);
-      setArticle(response.data.article);
-    });
+    getSingleArticle(article_id)
+      .then((response) => {
+        console.log(response);
+        setIsLoading(false);
+        setArticle(response.data.article);
+      })
+      .catch((err) => {
+        setErr(err);
+      });
   }, []);
-
+  console.log(err);
+  if (err)
+    return (
+      <h3>
+        {err.response.status}: {err.response.data.msg}
+      </h3>
+    );
   if (isLoading) return <p>Loading articles...</p>;
 
   return (

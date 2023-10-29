@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getArticleComments, postComment } from "./api";
+import { getArticleComments, postComment, deleteComment } from "./api";
 
 export default function CommentsList() {
   const { article_id } = useParams();
@@ -8,6 +8,7 @@ export default function CommentsList() {
   const [newComment, setNewComment] = useState("");
   const [isErr, setIsErr] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -16,7 +17,18 @@ export default function CommentsList() {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    deleteComment();
+    setIsDeleting(true);
+    const deleteId = e.target.value;
+    const commentText = e.target.parentElement.innerText;
+    const commentUserRegex = /^grumpy19/;
+    if (commentUserRegex.test(commentText)) {
+      deleteComment(deleteId).then((response) => {
+        if (response.status === 204) {
+          setIsDeleting(false);
+          alert("comment deleted");
+        }
+      });
+    } else alert("Error: You can only delete your own comments.");
   };
 
   const handleSubmit = (e) => {
@@ -42,10 +54,14 @@ export default function CommentsList() {
     getArticleComments(article_id).then((comments) => {
       setCommentsList(comments.data);
     });
-  }, [isCommenting]);
+  }, [isCommenting, handleDelete]);
 
   if (isCommenting) {
     return <p>Commenting...</p>;
+  }
+
+  if (isDeleting) {
+    return <p>Deleting comment...</p>;
   }
 
   if (commentsList.length === 0) {
@@ -77,7 +93,9 @@ export default function CommentsList() {
               <p>Votes: {comment.votes}</p>
               <button>↑</button>
               <button>↓</button>
-              <button>🗑️</button>
+              <button value={comment.comment_id} onClick={handleDelete}>
+                🗑️
+              </button>
             </li>
           );
         })}

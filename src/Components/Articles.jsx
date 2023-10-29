@@ -36,10 +36,14 @@ export default function Articles() {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(topic, sortBy, order).then((articles) => {
-      setIsLoading(false);
-      setArticleList(articles);
-    });
+    getArticles(topic, sortBy, order)
+      .then((articles) => {
+        setIsLoading(false);
+        setArticleList(articles);
+      })
+      .catch((err) => {
+        if (err) console.log(err);
+      });
   }, [topicQuery, sortQuery, searchParams, topic]);
 
   if (isLoading) return <p>Loading articles...</p>;
