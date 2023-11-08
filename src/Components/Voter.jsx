@@ -19,10 +19,11 @@ export default function Voter({ votes, article_id }) {
   }, [userVotes]);
 
   return (
-    <div>
+    <div className="voter">
       <p>
         Votes: {votes + userVotes}
         <button
+          className="vote"
           disabled={userVotes === 1}
           onClick={() => {
             updateVotes(1);
@@ -31,6 +32,7 @@ export default function Voter({ votes, article_id }) {
           ↑
         </button>
         <button
+          className="vote"
           disabled={userVotes === -1}
           onClick={() => {
             updateVotes(-1);

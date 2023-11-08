@@ -52,6 +52,19 @@ const deleteComment = (comment_id) => {
   );
 };
 
+const getFeaturedArticle = () => {
+  function getRandomNumber() {
+    const random = Math.random();
+    const randomNumber = Math.floor(random * 37) + 1;
+    return randomNumber;
+  }
+  let randomNum = getRandomNumber();
+
+  return myApi.get(
+    `https://nc-news-6m81.onrender.com/api/articles/${randomNum}`
+  );
+};
+
 export {
   getArticles,
   getSingleArticle,
@@ -59,4 +72,5 @@ export {
   incrementArticle,
   postComment,
   deleteComment,
+  getFeaturedArticle,
 };

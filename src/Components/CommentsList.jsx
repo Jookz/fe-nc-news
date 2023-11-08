@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticleComments, postComment, deleteComment } from "./api";
+import moment from "moment";
 
 export default function CommentsList() {
   const { article_id } = useParams();
@@ -25,10 +26,13 @@ export default function CommentsList() {
       deleteComment(deleteId).then((response) => {
         if (response.status === 204) {
           setIsDeleting(false);
-          alert("comment deleted");
+          alert("Comment deleted");
         }
       });
-    } else alert("Error: You can only delete your own comments.");
+    } else {
+      setIsDeleting(false);
+      alert("Error: You can only delete your own comments.");
+    }
   };
 
   const handleSubmit = (e) => {
@@ -70,9 +74,17 @@ export default function CommentsList() {
 
   return (
     <article>
-      <h1>Comments</h1>
-      <form action="/" method="POST" onSubmit={handleSubmit}>
-        <label htmlFor="comment-input">Add a comment:</label>
+      <h2>Comments</h2>
+      <br></br>
+      <form
+        className="comment-form"
+        action="/"
+        method="POST"
+        onSubmit={handleSubmit}
+      >
+        <label className="comment-label" htmlFor="comment-input">
+          Add a comment:
+        </label>
         <textarea
           value={newComment}
           id={`comment-input__${isErr}`}
@@ -81,19 +93,28 @@ export default function CommentsList() {
           onChange={handleChange}
           required
         ></textarea>
-        <button>💬</button>
+        <button className="comment-button">💬</button>
       </form>
       <ul>
         {commentsList.map((comment) => {
           return (
-            <li key={comment.comment_id}>
-              <h3>{comment.author}</h3>
-              <p>{comment.body}</p>
-              <p>Published: {comment.created_at}</p>
+            <li className="comment-card" key={comment.comment_id}>
+              <div className="comment-top">
+                <h3 className="comment-author">{comment.author}</h3>{" "}
+                <p className="comment-date">
+                  {moment(comment.created_at).fromNow()}
+                </p>
+              </div>
+
+              <p className="comment-body">{comment.body}</p>
               <p>Votes: {comment.votes}</p>
-              <button>↑</button>
-              <button>↓</button>
-              <button value={comment.comment_id} onClick={handleDelete}>
+              <button className="vote">↑</button>
+              <button className="vote">↓</button>
+              <button
+                className="vote"
+                value={comment.comment_id}
+                onClick={handleDelete}
+              >
                 🗑️
               </button>
             </li>

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import CommentsList from "./CommentsList";
 import { getSingleArticle } from "./api";
 import Voter from "./Voter";
+import moment from "moment";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
@@ -14,7 +15,6 @@ export default function SingleArticle() {
     setIsLoading(true);
     getSingleArticle(article_id)
       .then((response) => {
-        console.log(response);
         setIsLoading(false);
         setArticle(response.data.article);
       })
@@ -22,7 +22,7 @@ export default function SingleArticle() {
         setErr(err);
       });
   }, []);
-  console.log(err);
+
   if (err)
     return (
       <h3>
@@ -33,12 +33,14 @@ export default function SingleArticle() {
 
   return (
     <section>
-      <article>
+      <article className="single-article">
         <h1>{article.title}</h1>
         <img className="article-image" src={article.article_img_url} alt="" />
-        <p>Published: {article.created_at}</p>
-        <p>Author: {article.author}</p>
-        <p>Topic: {article.topic}</p>
+        <p>
+          Published:{" "}
+          {moment(article.created_at).utc().format("DD-MM-YYYY, hh:mm")} |
+          Author: {article.author} | Topic: {article.topic}
+        </p>
         <p>{article.body}</p>
         <h3>Like this article?</h3>
         <Voter article_id={article.article_id} votes={article.votes} />
