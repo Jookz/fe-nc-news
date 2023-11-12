@@ -1,8 +1,3 @@
-# React + Vite
+NC-News stands as a simulated news platform, designed with a backend API that enables programmatic access to application data, and a front end that allows the user to easily and effectively use it. The primary goal is to replicate the structure of a real-world backend service, similar to platforms like Reddit, furnishing essential information to the front-end architecture. This project serves as a demonstration, showcasing the mechanisms involved in creating a functional backend that delivers data to a front-end interface.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Hosted version of website can be found here - https://nc-news-26.netlify.app
