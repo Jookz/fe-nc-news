@@ -7,7 +7,7 @@ export const LoginProvider = ({ children }) => {
   const [user, setUser] = useState("");
 
   return (
-    <LoginContext.Provider value={{ login, setLogin }}>
+    <LoginContext.Provider value={{ login, setLogin, user, setUser }}>
       {children}
     </LoginContext.Provider>
   );

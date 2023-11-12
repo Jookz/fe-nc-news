@@ -1,21 +1,38 @@
-import { useState, useEffect } from "react";
-import { incrementArticle } from "./api";
+import { useState, useEffect, useContext } from "react";
+import { incrementArticle, incrementComment } from "./api";
+import { LoginContext } from "../Contexts/LoginContext";
 
-export default function Voter({ votes, article_id }) {
+export default function Voter({ votes, commentId, articleId }) {
   const [userVotes, setUserVotes] = useState(0);
   const [err, setErr] = useState(null);
+  const { user } = useContext(LoginContext);
 
   const updateVotes = (value) => {
-    setUserVotes((currentVotes) => {
-      return currentVotes + value;
-    });
+    if (user) {
+      setUserVotes((currentVotes) => {
+        return currentVotes + value;
+      });
+    } else {
+      alert("You must be logged in to vote");
+    }
   };
 
   useEffect(() => {
-    incrementArticle(article_id, userVotes).catch((error) => {
-      setUserVotes(0);
-      setErr(error);
-    });
+    if (articleId) {
+      incrementArticle(articleId, userVotes).catch((error) => {
+        setUserVotes(0);
+        setErr(error);
+      });
+    }
+  }, [userVotes]);
+
+  useEffect(() => {
+    if (commentId) {
+      incrementComment(commentId, userVotes).catch((error) => {
+        setUserVotes(0);
+        setErr(error);
+      });
+    }
   }, [userVotes]);
 
   return (

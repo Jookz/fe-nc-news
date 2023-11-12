@@ -39,6 +39,13 @@ const incrementArticle = (article_id, userVotes) => {
   );
 };
 
+const incrementComment = (comment_id, userVotes) => {
+  return myApi.patch(
+    `https://nc-news-6m81.onrender.com/api/comments/${comment_id}`,
+    { inc_votes: userVotes }
+  );
+};
+
 const postComment = (article_id, comment) => {
   return myApi.post(
     `https://nc-news-6m81.onrender.com/api/articles/${article_id}/comments`,
@@ -70,6 +77,7 @@ export {
   getSingleArticle,
   getArticleComments,
   incrementArticle,
+  incrementComment,
   postComment,
   deleteComment,
   getFeaturedArticle,

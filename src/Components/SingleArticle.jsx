@@ -43,7 +43,7 @@ export default function SingleArticle() {
         </p>
         <p>{article.body}</p>
         <h3>Like this article?</h3>
-        <Voter article_id={article.article_id} votes={article.votes} />
+        <Voter articleId={article.article_id} votes={article.votes} />
       </article>
       <CommentsList />
     </section>

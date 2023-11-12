@@ -7,7 +7,11 @@ export default function LoginToggle() {
     setLogin((currentLogin) => {
       return currentLogin === "logged-out" ? "logged-in" : "logged-out";
     });
-    setUser("grumpy19");
+    if (login === "logged-in") {
+      setUser("");
+    } else {
+      setUser("grumpy19");
+    }
   };
   return (
     <button onClick={toggleLogin} className={`button__${login}`}>

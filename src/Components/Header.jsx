@@ -6,8 +6,7 @@ export default function Header() {
   const { user } = useContext(LoginContext);
   return (
     <div className="header">
-      {user === "grumpy19" ? <p>Logged in as: grumpy19</p> : <p></p>}
-      <DarkModeToggle />
+      {user ? <p className="logged-in-as">Logged in as: {user}</p> : <p></p>}
       <h1>NC News</h1>
       <h2>Your go-to for mildly interesting tidbits</h2>
     </div>

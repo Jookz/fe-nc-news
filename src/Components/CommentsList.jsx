@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticleComments, postComment, deleteComment } from "./api";
 import moment from "moment";
+import Voter from "./Voter";
 
 export default function CommentsList() {
   const { article_id } = useParams();
@@ -107,9 +108,7 @@ export default function CommentsList() {
               </div>
 
               <p className="comment-body">{comment.body}</p>
-              <p>Votes: {comment.votes}</p>
-              <button className="vote">↑</button>
-              <button className="vote">↓</button>
+              <Voter id={comment.comment_id} votes={comment.votes} />
               <button
                 className="vote"
                 value={comment.comment_id}
